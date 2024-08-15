@@ -1,14 +1,14 @@
 import { product } from '../constants'
 import addToCartIcon from '../assets/images/icon-add-to-cart.svg'
 
-const ProductList = () => {
+const Product = () => {
   return (
-    <div className="grid grid-row-1 px-6">
+    <div className="grid grid-row-1 mx-6">
       {product.map((item) => (
         <div className="mt-4" key={item.name}>
           <div className="flex justify-center relative">
             <img
-              className="w-full rounded-xl"
+              className="w-full rounded-xl object-contain"
               src={item.image.mobile}
               alt={item.name}
             />
@@ -30,4 +30,4 @@ const ProductList = () => {
   )
 }
 
-export default ProductList
+export default Product

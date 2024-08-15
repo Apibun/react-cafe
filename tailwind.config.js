@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -15,6 +16,9 @@ module.exports = {
         },
         red: 'hsl(14, 86%, 42%)',
         green: 'hsl(159, 69%, 38%)',
+      },
+      fontFamily: {
+        sans: ['"Red Hat Text"', ...defaultTheme.fontFamily.sans],
       },
     },
   },
