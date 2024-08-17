@@ -1,4 +1,4 @@
-export const product = [
+export const products = [
   {
     image: {
       thumbnail: 'src/assets/images/image-waffle-thumbnail.jpg',
