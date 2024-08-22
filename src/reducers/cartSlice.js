@@ -7,8 +7,9 @@ export const cartSlice = createSlice({
   },
   reducers: {
     incrementProduct: (state, action) => {
-      let duplicateProduct = state.items.find(
-        (product) => product.name === action.payload.name
+      const { name } = action.payload
+      const duplicateProduct = state.items.find(
+        (product) => product.name === name
       )
       if (duplicateProduct) {
         duplicateProduct.quantity += 1
@@ -16,8 +17,20 @@ export const cartSlice = createSlice({
         state.items.push({ ...action.payload, quantity: 1 })
       }
     },
-    decrementProduct: (state) => {},
-    removeProduct: (state) => {},
+    decrementProduct: (state, action) => {
+      const { name } = action.payload
+      const decrementProduct = state.items.find(
+        (product) => product.name === name
+      )
+      decrementProduct.quantity -= 1
+      if (decrementProduct.quantity < 1) {
+        state.items = state.items.filter((product) => product.name !== name)
+      }
+    },
+    removeProduct: (state, action) => {
+      const { name } = action.payload
+      state.items = state.items.filter((product) => product.name !== name)
+    },
   },
 })
 

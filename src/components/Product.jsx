@@ -3,7 +3,8 @@ import addToCartIcon from '../assets/images/icon-add-to-cart.svg'
 import incrementIcon from '../assets/images/icon-increment-quantity.svg'
 import decrementIcon from '../assets/images/icon-decrement-quantity.svg'
 import { useSelector, useDispatch } from 'react-redux'
-import { incrementProduct } from '../reducers/cartSlice'
+import { decrementProduct, incrementProduct } from '../reducers/cartSlice'
+import { useEffect } from 'react'
 
 const Product = () => {
   const cart = useSelector((state) => state.cart.items)
@@ -22,7 +23,11 @@ const Product = () => {
             {cart.find((productCart) => productCart.name === product.name) ? (
               <div className="absolute -bottom-5 w-[9.5rem] px-6 py-2.5 rounded-3xl bg-red border border-primary-400">
                 <div className="flex items-center justify-between">
-                  <img src={decrementIcon} alt="decrement icon" />
+                  <button
+                    onClick={() => dispatch(decrementProduct(product))}
+                  >
+                    <img src={decrementIcon} alt="decrement icon" />
+                  </button>
                   <span className="text-white font-semibold">
                     {
                       cart.find(
@@ -30,7 +35,9 @@ const Product = () => {
                       ).quantity
                     }
                   </span>
-                  <button onClick={() => dispatch(incrementProduct(product))}>
+                  <button
+                    onClick={() => dispatch(incrementProduct(product))}
+                  >
                     <img src={incrementIcon} alt="increment icon" />
                   </button>
                 </div>
