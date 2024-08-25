@@ -2,9 +2,9 @@ import { products } from '../constants'
 import addToCartIcon from '../assets/images/icon-add-to-cart.svg'
 import incrementIcon from '../assets/images/icon-increment-quantity.svg'
 import decrementIcon from '../assets/images/icon-decrement-quantity.svg'
+import { currencyFormatter } from '../utils/currencyFormatter'
 import { useSelector, useDispatch } from 'react-redux'
 import { decrementProduct, incrementProduct } from '../reducers/cartSlice'
-import { useEffect } from 'react'
 
 const Product = () => {
   const cart = useSelector((state) => state.cart.items)
@@ -23,9 +23,7 @@ const Product = () => {
             {cart.find((productCart) => productCart.name === product.name) ? (
               <div className="absolute -bottom-5 w-[9.5rem] px-6 py-2.5 rounded-3xl bg-red border border-primary-400">
                 <div className="flex items-center justify-between">
-                  <button
-                    onClick={() => dispatch(decrementProduct(product))}
-                  >
+                  <button onClick={() => dispatch(decrementProduct(product))}>
                     <img src={decrementIcon} alt="decrement icon" />
                   </button>
                   <span className="text-white font-semibold">
@@ -35,9 +33,7 @@ const Product = () => {
                       ).quantity
                     }
                   </span>
-                  <button
-                    onClick={() => dispatch(incrementProduct(product))}
-                  >
+                  <button onClick={() => dispatch(incrementProduct(product))}>
                     <img src={incrementIcon} alt="increment icon" />
                   </button>
                 </div>
@@ -57,7 +53,9 @@ const Product = () => {
           <div className="mt-6 leading-6">
             <p className="text-primary-500 text-sm">{product.category}</p>
             <p className="text-primary-900 font-semibold">{product.name}</p>
-            <p className="text-red font-medium text-lg">{product.price}</p>
+            <p className="text-red font-medium text-lg">
+              {currencyFormatter.format(product.price)}
+            </p>
           </div>
         </div>
       ))}
