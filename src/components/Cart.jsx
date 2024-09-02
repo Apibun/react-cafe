@@ -25,9 +25,9 @@ const Cart = () => {
   }
 
   return (
-    <div className="m-6 p-6 bg-white rounded-lg">
-      <div className="mb-2 text-red text-2xl font-bold">
-        Your Cart ({orderAmount})
+    <div className="xl:w-96 m-6 lg:ml-3 p-6 bg-white rounded-lg">
+      <div className="mb-3 text-red text-2xl font-bold">
+        Your Cart {`(${orderAmount})`}
       </div>
       {cart.length > 0 ? (
         <div className="divide-y divide-gray-100">
@@ -63,38 +63,38 @@ const Cart = () => {
               </div>
             )
           })}
-          <div className="pt-5">
-            <div className="flex justify-between items-center">
-              <p className="text-primary-900 text-sm">Order Total</p>
-              <div className="text-xl font-bold">
-                {currencyFormatter.format(sumPrice)}
-              </div>
+          <div className="flex justify-between items-center py-6">
+            <p className="text-primary-900 text-sm">Order Total</p>
+            <div className="text-xl font-bold">
+              {currencyFormatter.format(sumPrice)}
             </div>
-            <div className="flex justify-center gap-x-2 py-3 my-4 rounded-lg bg-primary-50">
-              <img src={carbonNeutralIcon} alt="carbon neutral icon" />
-              <span className="text-primary-900 text-sm">
-                This is a <span className="font-semibold">carbon-neutral</span>{' '}
-                delivery
-              </span>
-            </div>
-            <button
-              onClick={() => setShowModal(true)}
-              className="w-full p-3 rounded-full bg-red text-white"
-            >
-              <span className="font-semibold">Confirm Order</span>
-            </button>
           </div>
+          <div className="flex justify-center gap-x-2 py-3 mb-4 rounded-lg bg-primary-50">
+            <img src={carbonNeutralIcon} alt="carbon neutral icon" />
+            <span className="text-primary-900 text-sm">
+              This is a <span className="font-semibold">carbon-neutral</span>{' '}
+              delivery
+            </span>
+          </div>
+          <button
+            onClick={() => setShowModal(true)}
+            className="w-full p-3 rounded-full bg-red text-white"
+          >
+            <span className="font-semibold">Confirm Order</span>
+          </button>
         </div>
       ) : (
-        <div className="flex flex-col items-center">
-          <img src={emptyCartImg} alt="empty cart image" />
+        <div className="flex flex-col items-center py-5">
+          <div className="mt-1 mb-3">
+            <img src={emptyCartImg} alt="empty cart image" />
+          </div>
           <p className="text-primary-500 font-semibold">
             Your added items will appear here
           </p>
         </div>
       )}
       <ConfirmOrderModal isShowModal={showModal}>
-        <div className="px-5 py-2 my-7 rounded-lg bg-primary-50 divide-y">
+        <div className="px-5 pt-2 my-7 rounded-lg bg-primary-50 divide-y">
           {cart.map((product) => (
             <div
               className="flex justify-between items-center py-4"
@@ -108,7 +108,7 @@ const Cart = () => {
                     alt="image thumbnail"
                   />
                 </div>
-                <div className="w-[9.5rem] text-sm leading-6">
+                <div className="w-[9.5rem] lg:w-auto text-sm leading-6">
                   <div className="font-semibold truncate">{product.name}</div>
                   <div className="flex gap-x-4">
                     <p className="text-red font-semibold">{`${product.quantity}x`}</p>
@@ -123,7 +123,7 @@ const Cart = () => {
               </div>
             </div>
           ))}
-          <div className="flex justify-between items-center pt-6 pb-4">
+          <div className="flex justify-between items-center py-6">
             <p className="text-sm text-primary-900">Order Total</p>
             <div className="text-xl font-bold">
               {currencyFormatter.format(sumPrice)}
