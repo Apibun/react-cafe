@@ -1,13 +1,22 @@
 import confirmOrderIcon from '../assets/images/icon-order-confirmed.svg'
-import { useSelector, useDispatch } from 'react-redux'
 
-const ConfirmOrderModal = ({ isShowModal, children }) => {
+const ConfirmOrderModal = ({ isShowModal, handleClose, children }) => {
+  const handleCloseModal = () => {
+    handleClose(!isShowModal)
+  }
+
   return (
     isShowModal && (
       //   backdrop
-      <div className="flex justify-center lg:items-center fixed inset-0 transition-colors bg-black/70">
+      <div
+        onClick={handleCloseModal}
+        className="flex justify-center items-center w-full max-h-full fixed inset-0 z-10 transition-colors bg-black/70"
+      >
         {/* modal */}
-        <div className="relative w-full lg:w-[30rem] xl:w-[35rem] lg:max-h-[41rem] overflow-auto px-6 lg:px-8 py-5 lg:py-8 mt-20 lg:mt-0 rounded-xl bg-white">
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className="relative w-full md:w-[28rem] lg:w-[30rem] xl:w-[35rem] max-h-[34rem] md:max-h-[31rem] lg:max-h-[41rem] overflow-auto p-5 lg:p-8 rounded-xl bg-white"
+        >
           <img
             className="my-4 lg:mt-2"
             src={confirmOrderIcon}

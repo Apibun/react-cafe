@@ -16,15 +16,17 @@ const ProductInCart = ({ product }) => {
   return (
     <div className="flex justify-between items-center py-3" key={product.name}>
       <div className="flex flex-col justify-center leading-7">
-        <div className="font-semibold text-primary-900">{product.name}</div>
+        <div className="font-semibold text-sm text-primary-900 leading-9">
+          {product.name}
+        </div>
         <div className="flex gap-x-2">
-          <p className="mr-2 text-red font-semibold">
+          <p className="mr-2 font-semibold text-sm text-red">
             {`${product.quantity}x`}
           </p>
-          <p className="text-primary-400">{`@ ${currencyFormatter.format(
+          <p className="text-sm text-primary-400">{`@ ${currencyFormatter.format(
             product.price
           )}`}</p>
-          <p className="text-primary-500 font-semibold">
+          <p className="text-sm text-primary-500 font-semibold">
             {currencyFormatter.format(totalPrice)}
           </p>
         </div>
@@ -94,13 +96,24 @@ const Cart = () => {
     0
   )
 
-  const handleNewOrder = () => {
+  const handleOpenModal = () => {
+    document.body.style.overflow = 'hidden'
+    setShowModal(true)
+  }
+
+  const handleCloseModal = (isShowModal) => {
+    document.body.style.overflow = 'unset'
+    setShowModal(isShowModal)
+  }
+
+  const handleConfirmOrder = () => {
     dispatch(resetCart())
+    document.body.style.overflow = 'unset'
     setShowModal(false)
   }
 
   return (
-    <div className="xl:w-96 m-6 lg:ml-3 p-6 bg-white rounded-lg">
+    <div className="xl:w-96 my-6 lg:ml-3 p-6 bg-white rounded-lg">
       <div className="mb-3 text-red text-2xl font-bold">
         Your Cart {`(${orderAmount})`}
       </div>
@@ -123,7 +136,7 @@ const Cart = () => {
             </span>
           </div>
           <button
-            onClick={() => setShowModal(true)}
+            onClick={handleOpenModal}
             className="w-full p-3 rounded-full bg-red text-white"
           >
             <span className="font-semibold">Confirm Order</span>
@@ -132,10 +145,11 @@ const Cart = () => {
       ) : (
         <EmptyCart />
       )}
-      <ConfirmOrderModal isShowModal={showModal}>
+      <ConfirmOrderModal isShowModal={showModal} handleClose={handleCloseModal}>
+        {/* modal content */}
         <div className="px-5 pt-2 my-7 rounded-lg bg-primary-50 divide-y">
           {cart.map((product) => (
-            <ProductInModal product={product} />
+            <ProductInModal key={product.name} product={product} />
           ))}
           <div className="flex justify-between items-center py-6">
             <p className="text-sm text-primary-900">Order Total</p>
@@ -145,7 +159,7 @@ const Cart = () => {
           </div>
         </div>
         <button
-          onClick={handleNewOrder}
+          onClick={handleConfirmOrder}
           className="w-full p-3 rounded-full bg-red text-white"
         >
           <span className="font-semibold text-sm">Start New Order</span>
