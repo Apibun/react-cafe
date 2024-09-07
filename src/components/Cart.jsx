@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { removeProduct } from '../reducers/cartSlice'
 import ConfirmOrderModal from './ConfirmOrderModal'
 import { resetCart } from '../reducers/cartSlice'
+import confirmOrderIcon from '../assets/images/icon-order-confirmed.svg'
 
 const ProductInCart = ({ product }) => {
   const dispatch = useDispatch()
@@ -67,7 +68,7 @@ const ProductInModal = ({ product }) => {
             alt="image thumbnail"
           />
         </div>
-        <div className="w-[9.5rem] lg:w-auto text-sm leading-6">
+        <div className="w-[9.5rem] md:w-auto lg:w-auto text-sm leading-6">
           <div className="font-semibold truncate">{product.name}</div>
           <div className="flex gap-x-4">
             <p className="text-red font-semibold">{`${product.quantity}x`}</p>
@@ -146,7 +147,19 @@ const Cart = () => {
         <EmptyCart />
       )}
       <ConfirmOrderModal isShowModal={showModal} handleClose={handleCloseModal}>
-        {/* modal content */}
+        {/* modal-header */}
+        <img
+          className="my-4 lg:mt-2"
+          src={confirmOrderIcon}
+          alt="confirm order icon"
+        />
+        <div className="text-3xl lg:text-4xl font-bold max-w-60 lg:max-w-fit">
+          Order Confirmed
+        </div>
+        <div className="mt-2 text-primary-500">
+          we hope you enjoy your food!
+        </div>
+        {/* modal body */}
         <div className="px-5 pt-2 my-7 rounded-lg bg-primary-50 divide-y">
           {cart.map((product) => (
             <ProductInModal key={product.name} product={product} />
@@ -158,6 +171,7 @@ const Cart = () => {
             </div>
           </div>
         </div>
+        {/* modal footer */}
         <button
           onClick={handleConfirmOrder}
           className="w-full p-3 rounded-full bg-red text-white"
